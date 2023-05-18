@@ -31,6 +31,34 @@ public class Calculator
 		return answer;
 	}
 	
+	private int min (ArrayList<Integer> input)
+	{
+		int minimum = Integer.MAX_VALUE;
+		for (int index = 0; index < input.size(); index++)
+		{
+			if (input.get(index) < minimum)
+			{
+				minimum = input.get(index);
+			}
+		}
+		
+		return minimum;
+	}
+	
+	private int max (ArrayList<Integer> input)
+	{
+		int maximum = Integer.MIN_VALUE;
+		for (int index = 0; index < input.size(); index++)
+		{
+			if (input.get(index) > maximum)
+			{
+				maximum = input.get(index);
+			}
+		}
+		
+		return maximum;
+	}
+	
 	public String getExpression()
 	{
 		return expression;
@@ -79,12 +107,21 @@ public class Calculator
 		{
 			int caret = input.indexOf("^");
 			
-			ArrayList<Integer> intList = new ArrayList<>();
+			String postCaret = input.substring(caret + 1);
+			String preCaret = input.substring(0, caret);
 			
-			for (String operator : operators)
+			ArrayList<Integer> postIntList = new ArrayList<>();
+			ArrayList<Integer> preIntList = new ArrayList<>();
+			
+			for (int index = 0; index < operators.length; index++)
 			{
-				intList.add(input.indexOf(operator));
+				String operator = operators[index];
+				postIntList.add(postCaret.indexOf(operator));
+				preIntList.add(preCaret.lastIndexOf(operator));
 			}
+			
+			int startPoint = max(preIntList);
+			int endPoint = min(postIntList);
 			
 		}
 		
